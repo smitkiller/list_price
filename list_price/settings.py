@@ -20,7 +20,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
-
+CSRF_COOKIE_DOMAIN = '.herokuapp.com'
 # Application definition
 
 INSTALLED_APPS = [
