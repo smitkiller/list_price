@@ -14,20 +14,21 @@ def index(request):
 	results = []
 	if request.method == 'POST':
 		form = UploadForm(request.POST, request.FILES)
-		# img_file = settings.IMAGE_ROOT + '\\' + str(request.FILES['upload_image'])
-		# csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
+		# # img_file = settings.IMAGE_ROOT + '\\' + str(request.FILES['upload_image'])
+		# # csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
 		if form.is_valid():
-			# form.save()
-			# cd = ColorDescriptor((8, 12, 3))
-			# sch = Searcher(csv_file)
-			# query = cv2.imread(img_file)
-			# features = cd.describe(query)
-			# results = sch.search(features)
-			# # print(results)
-			# for ((score, cost), resultID) in results:
-			# 	final_img.append({'score':score, 'cost':cost, 'path':resultID})
-			# # print(final_img)
 			submitted = True
+		# 	# form.save()
+		# 	# cd = ColorDescriptor((8, 12, 3))
+		# 	# sch = Searcher(csv_file)
+		# 	# query = cv2.imread(img_file)
+		# 	# features = cd.describe(query)
+		# 	# results = sch.search(features)
+		# 	# # print(results)
+		# 	# for ((score, cost), resultID) in results:
+		# 	# 	final_img.append({'score':score, 'cost':cost, 'path':resultID})
+		# 	# # print(final_img)
+		# 	submitted = True
 
 			# if os.path.isfile(img_file):
   	# 			os.remove(img_file)
