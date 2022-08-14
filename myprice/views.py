@@ -17,7 +17,7 @@ def index(request):
 		# img_file = settings.IMAGE_ROOT + '\\' + str(request.FILES['upload_image'])
 		# csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
 		if form.is_valid():
-			form.save()
+			# form.save()
 			# cd = ColorDescriptor((8, 12, 3))
 			# sch = Searcher(csv_file)
 			# query = cv2.imread(img_file)
