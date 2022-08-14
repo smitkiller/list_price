@@ -4,4 +4,5 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-	return HttpResponse("Hello My Price Application")
+	name = 'Smit Killer'
+	return render(request, 'home.html', {'name':name})
