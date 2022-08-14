@@ -2,8 +2,8 @@ from django.shortcuts import render
 # import cv2
 import os
 from django.conf import settings
-from .colordescriptor import ColorDescriptor
-from .searcher import Searcher
+# from .colordescriptor import ColorDescriptor
+# from .searcher import Searcher
 from .forms import UploadForm
 
 # Create your views here.
