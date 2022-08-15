@@ -7,9 +7,10 @@ from django.conf import settings
 # from .colordescriptor import ColorDescriptor
 # from .searcher import Searcher
 from .forms import UploadForm
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
-
+@csrf_exempt
 def index(request):
 	final_img = []
 	submitted = False
