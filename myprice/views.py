@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.template import RequestContext
 import cv2
 import os
 from django.http import HttpResponseRedirect
