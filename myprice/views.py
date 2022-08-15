@@ -16,8 +16,8 @@ def index(request):
 	results = []
 	if request.method == 'POST' and request.FILES:
 		form = UploadForm(request.POST, request.FILES)
-		img_file = settings.IMAGE_ROOT + '\\' + str(request.FILES['upload_image'])
-		csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
+		img_file = settings.IMAGE_ROOT + '/' + str(request.FILES['upload_image'])
+		csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
 		if form.is_valid():
 			# return HttpResponseRedirect('/?submitted=True')	
 			form.save()
