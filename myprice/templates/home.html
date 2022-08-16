@@ -1,38 +1,5 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if submitted %}
-	Upload Image Succesfully !!!<br><br>
-	{% for da in data %}
-
-		<div class="card">
-		  <div class="card-header">
-		   <!--  {{ event }} -->
-		  </div>
-		  <div class="card-body">
-		    <h5 class="card-title">Product</h5>
-		    <p class="card-text">
-		    	<ul>
-					<li>Name: {{da.path}}</li>
-					<li>Cost: {{da.cost}}</li>
-					<li>ความคลาดเคลื่อน: {{da.score}}</li>
-				</ul>
-		    </p>
-		  </div>
-		</div>
-		<br/>
-		<br/>
-		<br>
-
-	{% endfor %}
-
-{% else %}
-	<form action="" method="POST" enctype="multipart/form-data">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="Submit" class="btn-secondary">
-
-	</form>
-
-{% endif %}
+<h1>Welcome To My Apllication</h1>
 {% endblock %}

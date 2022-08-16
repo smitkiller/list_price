@@ -8,7 +8,12 @@ from .searcher import Searcher
 from .forms import UploadForm
 from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+
+def home(request):
+	return render(request, 'home.html',{})
+
+
+
 @csrf_exempt
 def upload(request):
 	final_img = []
@@ -44,4 +49,4 @@ def upload(request):
 		if os.path.isfile(img_file):
 	  		os.remove(img_file)
 
-	return render(request, 'home.html',{'form':form, 'submitted':submitted, 'data':final_img})
+	return render(request, 'upload.html',{'form':form, 'submitted':submitted, 'data':final_img})
