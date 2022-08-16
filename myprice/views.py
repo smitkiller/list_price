@@ -10,18 +10,20 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 @csrf_exempt
-def index(request):
+def upload(request):
 	final_img = []
 	submitted = False
 	results = []
 	if request.method == 'POST' and request.FILES:
 		form = UploadForm(request.POST, request.FILES)
 		img_file = settings.IMAGE_ROOT + '/' + str(request.FILES['upload_image'])
+		# img_file = settings.IMAGE_ROOT + '\\' + str(request.FILES['upload_image'])
 		csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
+		# csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
 		if form.is_valid():
 			form.save()
-			return HttpResponseRedirect('/?submitted=True')			
-			# submitted = True
+			# return HttpResponseRedirect('/upload?submitted=True')		
+			submitted = True
 
 	else:
 		form = UploadForm
