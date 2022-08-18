@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 import csv
 
+@csrf_exempt
 def update(request,id_update):
 	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
 	df = pd.read_csv(csv_file, header=None)
