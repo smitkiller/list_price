@@ -31,7 +31,7 @@ class Searcher:
 				# key is the current image ID in the index and the
 				# value is the distance we just computed, representing
 				# how 'similar' the image in the index is to our query
-				results[row[0]] = d,row[1]
+				results[row[1]] = d
 			# close the reader
 			f.close()
 		# print("aaaaa",results.items())

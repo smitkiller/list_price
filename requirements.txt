@@ -8,3 +8,4 @@ gunicorn==19.0.0
 opencv-python-headless==4.5.5.62
 imutils==0.5.4
 Pillow==9.2.0
+pandas==1.4.3

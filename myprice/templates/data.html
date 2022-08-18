@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Welcome To My Image DataBase</h1>
+{% for lines in infor %}
+
+		<div class="card">
+		  <div class="card-header">
+		   <!--  {{ event }} -->
+		  </div>
+		  <div class="card-body">
+		    <h5 class="card-title">ID: {{lines.id}}</h5>
+		    <p class="card-text">
+		    	<ul>
+					<li>Name: {{lines.name}}</li>
+				</ul>
+		    </p>
+		    <div class="text-end">
+		    	<a href="{% url 'update-name' lines.id %}" class="btn btn-primary" >Edit</a>
+		    </div>
+		  </div>
+
+		</div>
+		<br/>
+		<br/>
+		<br>
+
+{% endfor %}
+{% endblock %}

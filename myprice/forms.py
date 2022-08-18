@@ -5,5 +5,5 @@ from .models import Uploadss
 class UploadForm(ModelForm):
 	class Meta:
 		model = Uploadss
-		fields = ('upload_image',)
-		# fields = '__all__'
+		# fields = ('upload_image',)
+		fields = '__all__'
