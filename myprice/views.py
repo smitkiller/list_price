@@ -90,11 +90,11 @@ def upload(request):
 			# print(results)
 			for ((score, id_img), path) in results:
 				# image_directory = path[:path.rfind('.')]
-				full_name = path[:path.rfind('.')]
+				# full_name = path[:path.rfind('.')]
 				# full_name = image_directory.split('\\')[1]
-				name = full_name.split('_')[0]
-				capacity = full_name.split('_')[1]
-				cost = full_name.split('_')[2]
+				name = path.split('_')[0]
+				capacity = path.split('_')[1]
+				cost = path.split('_')[2]
 				final_img.append({'score':score, 'id':id_img, 'name':name, 'cost':cost, 'capacity':capacity})
 			# print(final_img)
 
