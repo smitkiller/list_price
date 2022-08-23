@@ -31,14 +31,14 @@ class Searcher:
 				# key is the current image ID in the index and the
 				# value is the distance we just computed, representing
 				# how 'similar' the image in the index is to our query
-				results[row[1]] = d
+				results[row[1]] = d, row[0]
 			# close the reader
 			f.close()
 		# print("aaaaa",results.items())
 		# sort our results, so that the smaller distances (i.e. the
 		# more relevant images are at the front of the list)
 		# results = sorted([(float(str(v)[:5]), k) for (k, v) in results.items()])
-		results = sorted([(v, k) for (k, v) in results.items()])
+		results = sorted([((v, i), k) for (k, (v, i)) in results.items()])
 		# return our (limited) results
 
 		# print("bbbbb",results)

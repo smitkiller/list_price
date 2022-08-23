@@ -79,7 +79,7 @@ def upload(request):
 				image = cv2.imread(img_file)
 				features_add = cd.describe(image)
 				features_add = [str(f) for f in features_add]
-				f.write("%d,%s,%s\n" % (int(id_),name_img, ",".join(features_add)))
+				f.write("%d,%s,%s\n" % (int(id_),request.POST['file_name'], ",".join(features_add)))
 				f.close()
 				redirect = True	
 		else:
@@ -88,14 +88,14 @@ def upload(request):
 			features = cd.describe(query)
 			results = sch.search(features)
 			# print(results)
-			for (score, path) in results:
+			for ((score, id_img), path) in results:
 				# image_directory = path[:path.rfind('.')]
 				full_name = path[:path.rfind('.')]
 				# full_name = image_directory.split('\\')[1]
 				name = full_name.split('_')[0]
 				capacity = full_name.split('_')[1]
 				cost = full_name.split('_')[2]
-				final_img.append({'score':score,'name':name, 'cost':cost, 'capacity':capacity})
+				final_img.append({'score':score, 'id':id_img, 'name':name, 'cost':cost, 'capacity':capacity})
 			# print(final_img)
 
 		if os.path.isfile(img_file):
