@@ -9,3 +9,4 @@ opencv-python-headless==4.5.5.62
 imutils==0.5.4
 Pillow==9.2.0
 pandas==1.4.3
+whitenoise==6.2.0
