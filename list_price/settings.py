@@ -16,7 +16,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
-    '[*.]herokuapp.com',
+    'secure-refuge-67481.herokuapp.com/[*]',
     '127.0.0.1',
 ]
 
