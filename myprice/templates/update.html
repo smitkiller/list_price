@@ -3,11 +3,21 @@
 {% block content %}
 <h1>Update Database</h1>
 
-		<form action="" method="POST">
-		{% csrf_token %}
-		<input name="name" type="text" value="{{old_name}}">
-		<input type="submit" value="Update" class="btn-secondary">
-
-	</form>
+		<div class="card">
+			<form action="" method="POST">
+			  <div class="card-header">
+			   Edit Data
+			  </div>
+			  <div class="card-body">
+			    <h5 class="card-title"></h5>
+			    <p class="card-text">
+			    	
+						{% csrf_token %}
+						<input name="name" type="text" value="{{old_name}}" class="form-control" >
+			    </p>
+			    	<input type="submit" value="Update" class="btn btn-primary">
+			  </div>
+		  	</form>
+		</div>
 
 {% endblock %}

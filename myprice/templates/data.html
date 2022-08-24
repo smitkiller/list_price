@@ -2,22 +2,24 @@
 
 {% block content %}
 <h1>Welcome To My Image DataBase</h1>
-{% for lines in infor %}
+
 
 		<div class="card">
 		  <div class="card-header">
-		   <!--  {{ event }} -->
+		   Database
 		  </div>
 		  <div class="card-body">
-		    <h5 class="card-title">ID: {{lines.id}}</h5>
+		    <h5 class="card-title"></h5>
 		    <p class="card-text">
-		    	<ul>
-					<li>Name: {{lines.name}}</li>
+		    	{% for lines in infor %}
+		    	<ul class="position-relative" >
+					<li>Name: {{lines.name}}
+					   <a href="{% url 'update-name' lines.id %}" class="position-absolute end-0" >Edit</a>
+					</li>
 				</ul>
+				{% endfor %}
 		    </p>
-		    <div class="text-end">
-		    	<a href="{% url 'update-name' lines.id %}" class="btn btn-primary" >Edit</a>
-		    </div>
+
 		  </div>
 
 		</div>
@@ -25,5 +27,5 @@
 		<br/>
 		<br>
 
-{% endfor %}
+
 {% endblock %}
