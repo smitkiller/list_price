@@ -6,7 +6,10 @@
 
 		<div class="card">
 		  <div class="card-header">
+		  	<div class="position-relative">
 		   Database
+		    <a href="{% url 'upload-img' %}" class="position-absolute end-0 text-decoration-none" ><h5>+ADD</h5></a>
+		</div>
 		  </div>
 		  <div class="card-body">
 		    <h5 class="card-title"></h5>
@@ -14,7 +17,7 @@
 		    	{% for lines in infor %}
 		    	<ul class="position-relative" >
 					<li>Name: {{lines.name}}
-					   <a href="{% url 'update-name' lines.id %}" class="position-absolute end-0" >Edit</a>
+					   <a href="{% url 'update-name' lines.id %}" class="position-absolute end-0 text-decoration-none" ><h5>EDIT</h5></a>
 					</li>
 				</ul>
 				{% endfor %}
