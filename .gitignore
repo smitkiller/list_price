@@ -1,2 +1,6 @@
 *.pyc
 staticfiles
+index.csv
+*.jpg
+*.png
+mydatabase
