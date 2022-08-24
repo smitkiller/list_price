@@ -1,6 +1,6 @@
 *.pyc
 staticfiles
-index.csv
-*.jpg
-*.png
+media/index.csv
+media/images/*.jpg
+media/images/*.png
 mydatabase
