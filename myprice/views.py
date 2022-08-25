@@ -81,7 +81,6 @@ def upload(request):
 				features_add = [str(f) for f in features_add]
 				f.write("%d,%s,%s\n" % (int(id_),request.POST['file_name'], ",".join(features_add)))
 				f.close()
-				redirect = True	
 		else:
 			sch = Searcher(csv_file)
 			query = cv2.imread(img_file)
@@ -101,7 +100,5 @@ def upload(request):
 		if os.path.isfile(img_file):
 	  		os.remove(img_file)
 
-	if redirect:
-	  	return HttpResponseRedirect('/data')
-	else:
-		return render(request, 'upload.html',{'form':form, 'submitted':submitted, 'data':final_img})
+
+	return render(request, 'upload.html',{'form':form, 'submitted':submitted, 'data':final_img})

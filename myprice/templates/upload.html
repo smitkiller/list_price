@@ -1,5 +1,70 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>test</h1>
+{% if submitted %}
+<div class="card">
+	<div class="card-header">
+	Succesfully !!!
+	</div>
+	<div class="card-body">
+		<p class="position-relative">
+		<a href="{% url 'data-img' %}" class="position-absolute end-0 text-decoration-none" >Go To Database</a>
+		</p>
+	</div>
+</div>
+	{% for da in data %}
+
+		<div class="card">
+		  <div class="card-header">
+		   <!--  {{ event }} -->
+		  </div>
+		  <div class="card-body">
+		    <h5 class="card-title">Product ID {{da.id}}</h5>
+		    <p class="card-text">
+		    	<ul>
+					<li>Name: {{da.name}}</li>
+					<li>Cost: {{da.cost}}</li>
+					<li>ปริมาตร: {{da.capacity}}</li>
+					<li>ความคลาดเคลื่อน: {{da.score}}</li>
+				</ul>
+		    </p>
+		    <div class="text-end">
+		    	<a href="{% url 'update-name' da.id %}" class="btn btn-info" >Edit</a>
+		    </div>
+		  </div>
+		</div>
+		<br/>
+		<br/>
+		<br>
+
+	{% endfor %}
+
+{% else %}
+	<form action="" method="POST" enctype="multipart/form-data">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" class="btn btn-info">
+	</form>
+
+<script>
+$('select[name="action"]').on('change', function(){
+    var select_val = $(this).val();
+    if (select_val == "SEARCH"){
+        $("input:text").val("search");
+        $( "#id_file_name" ).prop( "hidden", true );
+        
+    }else if(select_val == "ADD_DATA"){
+        // $( "#id_file_name" ).prop( "disabled", false );
+        $("input:text").val("");
+        $( "#id_file_name" ).prop( "hidden", false );
+    }
+})
+// $('#id_action').click(function(){
+//  select_val = $( "#id_action" ).val()
+//     console.log(select_val)
+//     });
+// $( "#id_file_name" ).prop( "disabled", true );
+// document.getElementById("id_file_name").disabled = true;
+</script>
+{% endif %}
 {% endblock %}
