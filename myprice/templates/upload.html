@@ -35,27 +35,8 @@
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Submit" class="btn btn-info">
-
 	</form>
-<script>
-	$('select[name="action"]').on('change', function(){
-		var select_val = $(this).val();
-		if (select_val == "SEARCH"){
-			$("input:text").val("search");
-			$( "#id_file_name" ).prop( "hidden", true );
-			
-		}else if(select_val == "ADD_DATA"){
-			// $( "#id_file_name" ).prop( "disabled", false );
-			$("input:text").val("");
-			$( "#id_file_name" ).prop( "hidden", false );
-		}
-	})
-// $('#id_action').click(function(){
-// 	select_val = $( "#id_action" ).val()
-//     console.log(select_val)
-//     });
-// $( "#id_file_name" ).prop( "disabled", true );
-// document.getElementById("id_file_name").disabled = true;
-</script>
+	
+
 {% endif %}
 {% endblock %}
