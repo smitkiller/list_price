@@ -44,7 +44,7 @@ def count_row():
 			count += 1
 	return count
 
-@csrf_exempt
+
 def upload(request):
 	final_img = []
 	submitted = False
