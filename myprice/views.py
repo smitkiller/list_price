@@ -47,10 +47,10 @@ def count_row():
 @csrf_exempt
 def upload(request):
 	final_img = []
+	save_status = False
 	submitted = False
 	results = []
 	name_img = ''
-	redirect = False
 	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
 	# csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
 	cd = ColorDescriptor((8, 12, 3))
@@ -66,13 +66,14 @@ def upload(request):
 			form.save()
 			# return HttpResponseRedirect('/upload?submitted=True')		
 			submitted = True
+			save_status = True
 
 	else:
 		form = UploadForm
-		# if 'submitted' in request.GET:
-		# 	submitted = True
+		if 'submitted' in request.GET:
+			submitted = True
 
-	if submitted:
+	if save_status:
 
 		if request.POST['action'] == 'ADD_DATA':
 			with open(csv_file, 'a') as f:
@@ -81,6 +82,7 @@ def upload(request):
 				features_add = [str(f) for f in features_add]
 				f.write("%d,%s,%s\n" % (int(id_),request.POST['file_name'], ",".join(features_add)))
 				f.close()
+				return HttpResponseRedirect('/upload?submitted=True')
 		else:
 			sch = Searcher(csv_file)
 			query = cv2.imread(img_file)
@@ -100,5 +102,6 @@ def upload(request):
 		if os.path.isfile(img_file):
 	  		os.remove(img_file)
 
+		
 
 	return render(request, 'upload.html',{'form':form, 'submitted':submitted, 'data':final_img})
