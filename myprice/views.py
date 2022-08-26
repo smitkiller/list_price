@@ -10,39 +10,53 @@ from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 import csv
 
+
+def delete(request,id_del):
+	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
+	if os.path.isfile(csv_file):
+		# df = pd.read_csv(csv_file, header=None)
+		# df.drop(int(id_del)-1,axis=0,inplace=True)
+		# df.to_csv(csv_file, header=None, index=False)
+		df = pd.read_csv(csv_file, header=None)
+		df.loc[int(id_del)-1, 1] = ''
+		df.to_csv(csv_file, header=None, index=False)
+	return HttpResponseRedirect('/data')
+
 @csrf_exempt
 def update(request,id_update):
 	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
-	df = pd.read_csv(csv_file, header=None)
-	old_name = df.loc[int(id_update)-1, 1]
-	if request.method == 'POST':
-		df.loc[int(id_update)-1, 1] = request.POST['name']
-		df.to_csv(csv_file, header=None, index=False)
-		return HttpResponseRedirect('/data')
+	if os.path.isfile(csv_file):
+		df = pd.read_csv(csv_file, header=None)
+		old_name = df.loc[int(id_update)-1, 1]
+		if request.method == 'POST':
+			df.loc[int(id_update)-1, 1] = request.POST['name']
+			df.to_csv(csv_file, header=None, index=False)
+			return HttpResponseRedirect('/data')
 	return render(request, 'update.html',{'old_name':old_name})
 
 def home(request):
-	return render(request, 'home.html',{})
+	count = count_row()
+	return render(request, 'home.html',{'count':count})
 
 def data(request):
 	infor = []
-	if os.path.isfile(settings.MEDIA_ROOT + '/' + 'index.csv'):
-		csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
+	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
+	if os.path.isfile(csv_file):	
 		rf = csv.reader(open(csv_file))
 		for d in rf:
-			infor.append({'id':d[0],'name':d[1]})
-
-	
+			if d[1] != '':
+				infor.append({'id':d[0],'name':d[1]})
 	return render(request, 'data.html',{'infor':infor})
 
 def count_row():
-	count = 0
+	last_id = 0
 	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
 	if os.path.isfile(csv_file):
 		rf = csv.reader(open(csv_file))
 		for r in rf:
-			count += 1
-	return count
+			if int(r[0]) > int(last_id):
+				last_id = r[0]
+	return int(last_id)
 
 @csrf_exempt
 def upload(request):
@@ -92,9 +106,18 @@ def upload(request):
 				# image_directory = path[:path.rfind('.')]
 				# full_name = path[:path.rfind('.')]
 				# full_name = image_directory.split('\\')[1]
-				name = path.split('_')[0]
-				capacity = path.split('_')[1]
-				cost = path.split('_')[2]
+				data = path.split('_')
+				c = 0
+				for d in data:
+					c += 1
+				if c < 3:
+					name = path
+					capacity = ''
+					cost = ''
+				else:
+					name = data[0]
+					capacity = data[1]
+					cost = data[2]
 				final_img.append({'score':score, 'id':id_img, 'name':name, 'cost':cost, 'capacity':capacity})
 			# print(final_img)
 

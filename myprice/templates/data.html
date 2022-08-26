@@ -17,7 +17,10 @@
 		    	{% for lines in infor %}
 		    	<ul class="position-relative" >
 					<li>Name: {{lines.name}}
-					   <a href="{% url 'update-name' lines.id %}" class="position-absolute end-0 text-decoration-none" ><h5>EDIT</h5></a>
+					<sapn class="position-absolute end-0">
+					   <a href="{% url 'update-name' lines.id %}" class="text-decoration-none" >Edit</a> |
+					   <a href="{% url 'del-data' lines.id %}" class="text-decoration-none" >Del</a>
+					</sapn>
 					</li>
 				</ul>
 				{% endfor %}
