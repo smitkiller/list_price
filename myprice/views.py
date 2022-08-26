@@ -47,8 +47,8 @@ def count_row():
 @csrf_exempt
 def upload(request):
 	final_img = []
-	save_status = False
 	submitted = False
+	action = False
 	results = []
 	name_img = ''
 	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
@@ -66,23 +66,22 @@ def upload(request):
 			form.save()
 			# return HttpResponseRedirect('/upload?submitted=True')		
 			submitted = True
-			save_status = True
 
 	else:
 		form = UploadForm
-		if 'submitted' in request.GET:
-			submitted = True
+		# if 'submitted' in request.GET:
+			# submitted = True
 
-	if save_status:
+	if submitted:
 
 		if request.POST['action'] == 'ADD_DATA':
+			action = True
 			with open(csv_file, 'a') as f:
 				image = cv2.imread(img_file)
 				features_add = cd.describe(image)
 				features_add = [str(f) for f in features_add]
 				f.write("%d,%s,%s\n" % (int(id_),request.POST['file_name'], ",".join(features_add)))
-				f.close()
-				return HttpResponseRedirect('/upload?submitted=True')
+				f.close()		
 		else:
 			sch = Searcher(csv_file)
 			query = cv2.imread(img_file)
@@ -103,5 +102,12 @@ def upload(request):
 	  		os.remove(img_file)
 
 		
+	if action:
+		return HttpResponseRedirect('/up_success')
+	else:
+		return render(request, 'upload.html',{'form':form, 'submitted':submitted, 'data':final_img})
 
-	return render(request, 'upload.html',{'form':form, 'submitted':submitted, 'data':final_img})
+
+
+def up_success(request):
+	return render(request, 'up_success.html',{})

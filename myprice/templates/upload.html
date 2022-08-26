@@ -2,8 +2,7 @@
 
 {% block content %}
 {% if submitted %}
-	{% if data %}
-		{% for da in data %}
+	{% for da in data %}
 
 		<div class="card">
 		  <div class="card-header">
@@ -28,21 +27,7 @@
 		<br/>
 		<br>
 
-		{% endfor %}
-
-	{% else %}
-	<div class="card">
-		<div class="card-header">
-		Succesfully !!!
-		</div>
-		<div class="card-body">
-			<p class="position-relative">
-			<a href="{% url 'upload-img' %}" class="position-absolute start-0 text-decoration-none" >search</a>
-			<a href="{% url 'data-img' %}" class="position-absolute end-0 text-decoration-none" >Go To Database</a>
-			</p>
-		</div>
-	</div>
-	{% endif %}
+	{% endfor %}
 
 {% else %}
 	<form action="" method="POST" enctype="multipart/form-data">
