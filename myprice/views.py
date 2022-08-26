@@ -5,58 +5,33 @@ from django.http import HttpResponseRedirect
 from django.conf import settings
 from .colordescriptor import ColorDescriptor
 from .searcher import Searcher
-from .forms import UploadForm
+from .forms import UploadForm, FeaturesForm
 from django.views.decorators.csrf import csrf_exempt
 import pandas as pd
 import csv
+from .models import FeaturesImg
 
 
 def delete(request,id_del):
-	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
-	if os.path.isfile(csv_file):
-		# df = pd.read_csv(csv_file, header=None)
-		# df.drop(int(id_del)-1,axis=0,inplace=True)
-		# df.to_csv(csv_file, header=None, index=False)
-		df = pd.read_csv(csv_file, header=None)
-		df.loc[int(id_del)-1, 1] = ''
-		df.to_csv(csv_file, header=None, index=False)
+	features_img = FeaturesImg.objects.get(pk=id_del)
+	features_img.delete()
 	return HttpResponseRedirect('/data')
 
 @csrf_exempt
 def update(request,id_update):
-	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
-	if os.path.isfile(csv_file):
-		df = pd.read_csv(csv_file, header=None)
-		old_name = df.loc[int(id_update)-1, 1]
-		if request.method == 'POST':
-			df.loc[int(id_update)-1, 1] = request.POST['name']
-			df.to_csv(csv_file, header=None, index=False)
-			return HttpResponseRedirect('/data')
-	return render(request, 'update.html',{'old_name':old_name})
+	features_img = FeaturesImg.objects.get(pk=id_update)
+	form = FeaturesForm(request.POST or None, instance=features_img)
+	if form.is_valid():
+		form.save()
+		return HttpResponseRedirect('/data')
+	return render(request, 'update.html',{'features_img':features_img, 'form':form})
 
 def home(request):
-	count = count_row()
-	return render(request, 'home.html',{'count':count})
+	return render(request, 'home.html',{})
 
 def data(request):
-	infor = []
-	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
-	if os.path.isfile(csv_file):	
-		rf = csv.reader(open(csv_file))
-		for d in rf:
-			if d[1] != '':
-				infor.append({'id':d[0],'name':d[1]})
-	return render(request, 'data.html',{'infor':infor})
-
-def count_row():
-	last_id = 0
-	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
-	if os.path.isfile(csv_file):
-		rf = csv.reader(open(csv_file))
-		for r in rf:
-			if int(r[0]) > int(last_id):
-				last_id = r[0]
-	return int(last_id)
+	results = FeaturesImg.objects.all()
+	return render(request, 'data.html',{'infor':results})
 
 @csrf_exempt
 def upload(request):
@@ -66,16 +41,12 @@ def upload(request):
 	results = []
 	name_img = ''
 	csv_file = settings.MEDIA_ROOT + '/' + 'index.csv'
-	# csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
 	cd = ColorDescriptor((8, 12, 3))
-	id_ = count_row()
-	id_ = id_ + 1
 	if request.method == 'POST' and request.FILES:
 		form = UploadForm(request.POST, request.FILES)
 		name_img = request.FILES['upload_image']
+		name = request.POST['file_name']
 		img_file = settings.IMAGE_ROOT + '/' + str(name_img)
-		# img_file = settings.IMAGE_ROOT + '\\' + str(request.FILES['upload_image'])	
-		# csv_file = settings.MEDIA_ROOT + '\\' + 'index.csv'
 		if form.is_valid():
 			form.save()
 			# return HttpResponseRedirect('/upload?submitted=True')		
@@ -90,14 +61,14 @@ def upload(request):
 
 		if request.POST['action'] == 'ADD_DATA':
 			action = True
-			with open(csv_file, 'a') as f:
-				image = cv2.imread(img_file)
-				features_add = cd.describe(image)
-				features_add = [str(f) for f in features_add]
-				f.write("%d,%s,%s\n" % (int(id_),request.POST['file_name'], ",".join(features_add)))
-				f.close()		
+			image = cv2.imread(img_file)
+			features_add = cd.describe(image)
+			features_add = [str(f) for f in features_add]
+			addform = FeaturesImg(name=name,features= ",".join(features_add))
+			addform.save()
 		else:
-			sch = Searcher(csv_file)
+			data_list = FeaturesImg.objects.all()
+			sch = Searcher(data_list)
 			query = cv2.imread(img_file)
 			features = cd.describe(query)
 			results = sch.search(features)

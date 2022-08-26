@@ -14,12 +14,12 @@
 		  <div class="card-body">
 		    <h5 class="card-title"></h5>
 		    <p class="card-text">
-		    	{% for lines in infor %}
+		    	{% for up in infor %}
 		    	<ul class="position-relative" >
-					<li>Name: {{lines.name}}
+					<li>Name: {{up.name}}
 					<sapn class="position-absolute end-0">
-					   <a href="{% url 'update-name' lines.id %}" class="text-decoration-none" >Edit</a> |
-					   <a href="{% url 'del-data' lines.id %}" class="text-decoration-none" >Del</a>
+					   <a href="{% url 'update-name' up.id %}" class="text-decoration-none" >Edit</a> |
+					   <a href="{% url 'del-data' up.id %}" class="text-decoration-none" >Del</a>
 					</sapn>
 					</li>
 				</ul>

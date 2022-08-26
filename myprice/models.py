@@ -16,3 +16,11 @@ class Uploadss(models.Model):
 	
 	def __str__(self):
 		return self.file_name
+
+
+class FeaturesImg(models.Model):
+	name = models.CharField(max_length=120)
+	features = models.CharField(max_length=500)
+
+	def __str__(self):
+		return self.name

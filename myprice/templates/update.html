@@ -13,7 +13,8 @@
 			    <p class="card-text">
 			    	
 						{% csrf_token %}
-						<input name="name" type="text" value="{{old_name}}" class="form-control" required >
+						{{form.as_p}}
+						<!-- <input name="name" type="text" value="{{features_img.name}}" class="form-control" required > -->
 			    </p>
 			    	<input type="submit" value="Update" class="btn btn-info">
 			  </div>
