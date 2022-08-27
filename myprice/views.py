@@ -17,7 +17,7 @@ def delete(request,id_del):
 	features_img.delete()
 	return HttpResponseRedirect('/data')
 
-@csrf_exempt
+# @csrf_exempt
 def update(request,id_update):
 	features_img = FeaturesImg.objects.get(pk=id_update)
 	form = FeaturesForm(request.POST or None, instance=features_img)
@@ -33,7 +33,7 @@ def data(request):
 	results = FeaturesImg.objects.all()
 	return render(request, 'data.html',{'infor':results})
 
-@csrf_exempt
+# @csrf_exempt
 def upload(request):
 	final_img = []
 	submitted = False
